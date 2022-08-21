@@ -3,15 +3,6 @@ DEVSYS-15.Lighthouse
 
 Downdload and install VK Lighthouse
 
-Requirements
-------------
-```
-  - src: git@github.com:AlexeySetevoi/ansible-clickhouse.git
-    scm: git
-    version: "1.11.0"
-    name: my_clickhouse 
-```
-
 Role Variables
 --------------
 ```
@@ -33,7 +24,7 @@ Example Playbook
   roles:
     - DEVSYS-15.Lighthouse
   tags: 
-      - "install Lighthouse"
+    - "install Lighthouse"
 ```
 License
 -------
