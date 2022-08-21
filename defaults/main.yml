@@ -1,0 +1,4 @@
+---
+# defaults file for lighthouse-role
+install_Lighthouse_dir: '/var/www/html/'
+Lighthouse_url: "https://github.com/VKCOM/lighthouse/archive/refs/heads/master.zip"

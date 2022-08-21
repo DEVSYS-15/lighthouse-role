@@ -1,0 +1,14 @@
+---
+# handlers file for lighthouse-role
+- name: reload firewalld
+  become: true
+  ansible.builtin.systemd:
+    name: firewalld
+    state: restarted
+    
+- name:  Start httpd service
+  become: true
+  ansible.builtin.systemd:
+    name: httpd
+    state: restarted
+    enabled: yes

@@ -1,0 +1,6 @@
+---
+# tasks file for lighthouse-role
+- name: Install Lighthouse
+  include_tasks: install.yml  
+  tags: 
+    - "install Lighthouse"

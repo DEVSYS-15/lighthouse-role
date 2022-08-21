@@ -1,0 +1,53 @@
+  - name: Download Lighthouse
+    become: true
+    ansible.builtin.get_url:
+      url: "{{ Lighthouse_url }}"
+      dest: "files/Lighthouse.zip"
+    delegate_to: localhost
+    run_once: true
+    tags: 
+      - "install Lighthouse"
+  
+  - name: install packages
+    become: true
+    ansible.builtin.yum: 
+      name: "{{ item }}"
+    with_items:
+        - "httpd"
+        - "unzip"
+    notify: Start httpd service
+    tags: 
+      - "install Lighthouse"
+  
+  - name: Create a directory Lighthouse if it does not exist
+    ansible.builtin.file:
+      path: ./Lighthouse
+      state: directory
+      mode: '0755'
+    tags: 
+      - "install Lighthouse" 
+  
+  - name: Unarchive Lighthouse packages
+    unarchive:
+      src: "files/Lighthouse.zip"
+      dest: ./Lighthouse/
+    tags: 
+      - "install Lighthouse"
+  
+  - name: Copy Lighthouse to "{{ install_Lighthouse_dir }}"
+    ansible.builtin.copy:
+      src:  ./Lighthouse/lighthouse-master/
+      dest: " {{ install_Lighthouse_dir }}"     
+      remote_src: yes
+    tags: 
+      - "install Lighthouse"
+  
+  - name: Open port for Lighthouse
+    become: true
+    vars:
+      ansible_python_interpreter: /usr/bin/python
+    ansible.posix.firewalld:
+      port: "80/tcp"
+      permanent: yes
+      state: enabled
+    notify: reload firewalld
