@@ -2,7 +2,7 @@
     become: true
     ansible.builtin.get_url:
       url: "{{ Lighthouse_url }}"
-      dest: "files/Lighthouse.zip"
+      dest: "./Lighthouse.zip"
     delegate_to: localhost
     run_once: true
     tags: 
@@ -15,6 +15,7 @@
     with_items:
         - "httpd"
         - "unzip"
+        - "firewalld"
     notify: Start httpd service
     tags: 
       - "install Lighthouse"
@@ -29,7 +30,7 @@
   
   - name: Unarchive Lighthouse packages
     unarchive:
-      src: "files/Lighthouse.zip"
+      src: "Lighthouse.zip"
       dest: ./Lighthouse/
     tags: 
       - "install Lighthouse"
